@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # Add this line
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -20,6 +21,9 @@ jobs:
           submodules: true
           lfs: false
       - name: Build And Deploy
+        env: # Add this line
+          NODE_VERSION: 20 # Add this line
+          VITE_API_URL: ${{ secrets.VITE_API_URL }} # Add this line
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
